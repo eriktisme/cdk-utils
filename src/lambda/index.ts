@@ -38,7 +38,7 @@ export class NodeJSLambda extends NodejsFunction {
         banner: `import { createRequire } from 'module';const require = createRequire(import.meta.url);`,
         ...props.bundling,
       },
-      runtime: Runtime.NODEJS_22_X,
+      runtime: props.runtime ?? Runtime.NODEJS_22_X,
       timeout: props.timeout ?? Duration.seconds(15),
       tracing: Tracing.ACTIVE,
       environment: {

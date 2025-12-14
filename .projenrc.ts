@@ -4,7 +4,7 @@ import { NodePackageManager, NpmAccess } from 'projen/lib/javascript'
 const project = new AwsCdkConstructLibrary({
   author: 'eriktisme',
   authorAddress: '',
-  cdkVersion: '2.219.0',
+  cdkVersion: '2.232.2',
   defaultReleaseBranch: 'master',
   devDeps: ['esbuild'],
   eslintOptions: {
