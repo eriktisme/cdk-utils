@@ -1,7 +1,7 @@
 import { Duration } from 'aws-cdk-lib'
 import type { IEventBus, EventPattern } from 'aws-cdk-lib/aws-events'
 import { Rule } from 'aws-cdk-lib/aws-events'
-import { SqsQueue } from 'aws-cdk-lib/aws-events-targets'
+import { SqsQueue, SqsQueueProps } from 'aws-cdk-lib/aws-events-targets'
 import type { SqsEventSourceProps } from 'aws-cdk-lib/aws-lambda-event-sources'
 import { SqsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources'
 import type { QueueProps } from 'aws-cdk-lib/aws-sqs'
@@ -21,6 +21,7 @@ export interface EventConsumerProps {
   readonly eventSourceProps?: SqsEventSourceProps
   readonly handlerProps: NodeJSLambdaProps
   readonly queueProps?: QueueProps
+  readonly sqsQueueProps?: SqsQueueProps
 }
 
 export class EventConsumer extends Construct {
@@ -49,7 +50,7 @@ export class EventConsumer extends Construct {
     new Rule(this, 'rule', {
       eventBus: props.eventBus,
       eventPattern: props.eventPattern,
-      targets: [new SqsQueue(this.queue)],
+      targets: [new SqsQueue(this.queue, props.sqsQueueProps)],
     })
 
     this.handler = new NodeJSLambda(this, 'handler', props.handlerProps)
